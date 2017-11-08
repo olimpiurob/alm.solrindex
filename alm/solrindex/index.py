@@ -161,7 +161,8 @@ class SolrIndex(PropertyManager, SimpleItem):
         """Get a sequence of query parameter names to which this index applies."""
         if disable_solr:
             return []
-        return (self.id,)
+        # return the index named inside solr index instead of the solr index id
+        return self.getIndexSourceNames()
 
     def getEntryForObject(self, documentId, default=None):
         """Return the information stored for documentId"""

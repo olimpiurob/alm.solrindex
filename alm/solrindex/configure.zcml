@@ -4,8 +4,6 @@
     xmlns:five="http://namespaces.zope.org/five"
     >
 
-<include package="Products.CMFCore" />
-
 <!-- GenericSetup integration -->
 <include file="profiles.zcml" />
 <adapter factory=".exportimport.SolrIndexNodeAdapter"/>
@@ -53,7 +51,7 @@
     class=".index.SolrIndex"
     meta_type="SolrIndex"
     addview="addSolrIndex.html"
-    permission="cmf.ManagePortal"
+    permission="zope2.ViewManagementScreens"
     global="False"
     />
 
@@ -62,7 +60,7 @@
     name="addSolrIndex.html"
     template="addSolrIndex.pt"
     class=".browser.SolrIndexAddView"
-    permission="cmf.ManagePortal"
+    permission="zope2.ViewManagementScreens"
     />
 
 </configure>

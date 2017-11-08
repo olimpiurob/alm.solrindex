@@ -48,7 +48,6 @@ setup(
     zip_safe=False,
     install_requires=[
         'setuptools',
-        'Products.CMFPlone',
         #'solrpy',  # we have a private copy until solrpy fixes some bugs
     ],
     test_suite='alm.solrindex.tests.test_suite',
