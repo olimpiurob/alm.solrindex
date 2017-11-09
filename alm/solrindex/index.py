@@ -48,6 +48,7 @@ from alm.solrindex.interfaces import ISolrIndex
 from alm.solrindex.interfaces import ISolrIndexingWrapper
 from alm.solrindex.schema import SolrSchema
 from alm.solrindex.solrpycore import SolrConnection
+from alm.solrindex.handlers import PathFieldHandler
 
 disable_solr = os.environ.get('DISABLE_SOLR')
 
@@ -200,9 +201,14 @@ class SolrIndex(PropertyManager, SimpleItem):
             name = field.name
             if name == uniqueKey:
                 continue
-            value = getattr(obj, name, None)
-            if callable(value):
-                value = value()
+            if isinstance(field.handler, PathFieldHandler):
+                value = getattr(obj, 'getPhysicalPath', None)
+                if value:
+                    value = '/'.join(value())
+            else:
+                value = getattr(obj, name, None)
+                if callable(value):
+                    value = value()
             # Decode all strings using list from `expected_encodings`
             if isinstance(value, str):
                 value = self._decode_param(value)

@@ -150,3 +150,19 @@ class TextFieldHandler(DefaultFieldHandler):
             data_seq = [data]
         res = [self.convert_one(value) for value in data_seq]
         return [" ".join(res)]
+
+
+class PathFieldHandler(DefaultFieldHandler):
+
+    def parse_query(self, field, field_query):
+        query = super(PathFieldHandler, self).parse_query(field, field_query)
+        if query == {'fq': 'path:""'}:
+            return {}
+        return query
+
+    def convert_one(self, value):
+        # avoid including the site path in the index data
+        if value.startswith('/Plone'):
+            value = value[6:]
+        return super(PathFieldHandler, self).convert_one(value)
+

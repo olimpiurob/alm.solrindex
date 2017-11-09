@@ -47,6 +47,12 @@
     name="solr.TextField"
     />
 
+<utility 
+    factory=".handlers.PathFieldHandler"
+    provides=".interfaces.ISolrFieldHandler"
+    name="path"
+    />
+
 <five:registerClass
     class=".index.SolrIndex"
     meta_type="SolrIndex"
